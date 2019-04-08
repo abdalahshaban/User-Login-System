@@ -3,8 +3,39 @@
   <head>
     <title>{{title}}</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
+
   </head>
   <body>
+    {{#if success_msg}}
+      <div class="alert alert-dark">{{success_msg}}</div>
+    {{/if}}
+    {{#if error_msg}}
+      <div class="alert alert-danger">{{error_msg}}</div>
+    {{/if}}
+   
+      {{!-- {{#if errors}}
+        {{#each errors}}
+          <div class="alert alert-danger" role="alert">
+            <strong>{{msg}}</strong>
+          </div>
+        {{/each}}
+      {{/if}} --}}
+
+{{#if errors}}
+  {{#each errors as |item|}}
+  <ul class = "list-unstyled">
+    <li >
+      <div class="alert alert-danger" role="alert">
+              <strong>{{msg}}</strong>
+        </div>
+    </li>
+  </ul>
+{{/each}}
+{{/if}}
+
+
+
     {{{body}}}
   </body>
 </html>
