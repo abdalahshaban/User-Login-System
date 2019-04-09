@@ -4,15 +4,14 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const exphbs = require('handlebars');
+// const exphbs = require('handlebars');
 const expressValidator = require('express-validator');
-const flash = require('connect-flash');
+// const flash = require('connect-flash');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const session = require('express-session');
-// let exphbs = require('express-handlebars');
+let exphbs = require('express-handlebars');
 var helpers = require('handlebars-helpers');
-var array = helpers.array();
 
 
 const indexRouter = require('./routes/index');
@@ -27,7 +26,7 @@ const app = express();
 // });
 //connect code in user Model
 
-let hbs = require('express-handlebars').create({
+let hbs = exphbs.create({
   // Specify helpers which are only registered on this instance. 
   helpers: {
     foo: function () {
@@ -43,27 +42,41 @@ let hbs = require('express-handlebars').create({
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({
-  extended: false
+
+app.use(session({
+  secret: 'mysecret',
+  cookie: {
+    maxAge: 60000
+  }
 }));
 
-//express session
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    secure: true
-  }
-}))
+app.use(express.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+// express session
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+
+
+
+
+
+
+
+
+
+
 
 //express message
 app.use(require('connect-flash')());
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  res.locals.user = req.user || null
   next();
 })
 

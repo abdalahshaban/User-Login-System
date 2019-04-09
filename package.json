@@ -8,6 +8,7 @@
   "dependencies": {
     "bcryptjs": "*",
     "body-parse": "*",
+    "bootstrap": "^4.3.1",
     "connect-flash": "*",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
@@ -24,6 +25,7 @@
     "morgan": "~1.9.0",
     "passport": "^0.4.0",
     "passport-http": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "yarn": "^1.15.2"
   }
 }

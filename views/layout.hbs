@@ -2,18 +2,44 @@
 <html>
   <head>
     <title>{{title}}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    {{!-- <link rel='stylesheet' href='/stylesheets/style.css' /> --}}
+    
+    {{!-- <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css"> --}}
+    
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
 
   </head>
   <body>
+     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Passport APP</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto navbar-left">
+      <li><a  class="btn btn-warning" href="/">DashBord</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      {{#if user}}
+        <li><a class="btn btn-primary mr-2"  href="/logout">Logout</a></li>
+      {{else}}
+        <li><a class="btn btn-primary mr-2"  href="/login">Login</a></li>
+        <li><a class="btn btn-success" href="/register">Register</a></li>
+      {{/if}}
+      
+    </ul>
+  </div>
+</nav>
     {{#if success_msg}}
-      <div class="alert alert-dark">{{success_msg}}</div>
+      <div class="alert alert-success">{{success_msg}}</div>
     {{/if}}
     {{#if error_msg}}
       <div class="alert alert-danger">{{error_msg}}</div>
     {{/if}}
-   
+    {{#if error}}
+      <div class="alert alert-danger">{{error}}</div>
+    {{/if}} 
       {{!-- {{#if errors}}
         {{#each errors}}
           <div class="alert alert-danger" role="alert">
@@ -24,18 +50,19 @@
 
 {{#if errors}}
   {{#each errors as |item|}}
-  <ul class = "list-unstyled">
-    <li >
-      <div class="alert alert-danger" role="alert">
-              <strong>{{msg}}</strong>
-        </div>
-    </li>
-  </ul>
-{{/each}}
+    <ul class = "list-unstyled">
+      <li >
+        <div class="alert alert-danger" role="alert">
+                <strong>{{msg}}</strong>
+          </div>
+      </li>
+    </ul>
+  {{/each}}
 {{/if}}
 
 
-
+<div class="container">
     {{{body}}}
+    </div>
   </body>
 </html>
